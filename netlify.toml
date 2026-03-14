@@ -1,11 +1,26 @@
 [build]
   publish = "."
-  functions = "netlify/functions"
 
 [functions]
+  directory = "netlify/functions"
   node_bundler = "esbuild"
 
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  from = "/api/market/overview"
+  to = "/.netlify/functions/market/overview"
+  status = 200
+
+[[redirects]]
+  from = "/api/stocks"
+  to = "/.netlify/functions/stocks"
+  status = 200
+
+[[redirects]]
+  from = "/api/stock/:code"
+  to = "/.netlify/functions/stock/:code"
+  status = 200
+
+[[redirects]]
+  from = "/api/hot"
+  to = "/.netlify/functions/hot"
   status = 200
