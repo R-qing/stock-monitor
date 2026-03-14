@@ -2,7 +2,7 @@ import { fetchAllStocks } from '../../lib/stock-data.js';
 import { getMarketOverview } from '../../lib/analysis.js';
 
 const handler = async (event) => {
-  const headers = { 'Access-Control-Allow-Origin': '*' };
+  const headers = { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' };
   try {
     const stocks = await fetchAllStocks();
     const overview = getMarketOverview(stocks);
@@ -12,5 +12,4 @@ const handler = async (event) => {
     return { statusCode: 500, headers, body: JSON.stringify({ ok: false, detail: e.message }) };
   }
 };
-
 export { handler };

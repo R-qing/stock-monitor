@@ -1,8 +1,8 @@
-import { fetchAllStocks, fetchStockHistory } from '../../lib/stock-data.js';
-import { scoreStock, quickScore } from '../../lib/analysis.js';
+import { fetchAllStocks } from '../../lib/stock-data.js';
+import { quickScore } from '../../lib/analysis.js';
 
 const handler = async (event) => {
-  const headers = { 'Access-Control-Allow-Origin': '*' };
+  const headers = { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' };
   try {
     const params = new URLSearchParams(event.queryStringParameters || '');
     const sort = params.get('sort') || 'score';
@@ -16,7 +16,6 @@ const handler = async (event) => {
       stocks = stocks.filter(s => s.code.includes(kw) || s.name.toLowerCase().includes(kw));
     }
 
-    // 列表页用快速评分避免超时
     const results = stocks.slice(0, limit * 2).map(s => {
       const scoring = quickScore(s);
       return {
@@ -38,5 +37,4 @@ const handler = async (event) => {
     return { statusCode: 500, headers, body: JSON.stringify({ ok: false, detail: e.message }) };
   }
 };
-
 export { handler };

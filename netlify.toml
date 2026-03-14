@@ -2,8 +2,9 @@
   publish = "."
 
 [functions]
-  directory = "netlify/functions"
+  directory = "functions"
   node_bundler = "esbuild"
+  included_files = ["lib/**"]
 
 [[redirects]]
   from = "/api/market/overview"
